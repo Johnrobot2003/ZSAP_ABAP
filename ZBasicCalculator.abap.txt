@@ -1,0 +1,26 @@
+CLASS zcalculator DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC.
+
+  PUBLIC SECTION.
+    INTERFACES if_oo_adt_classrun.
+ENDCLASS.
+
+
+
+CLASS zcalculator IMPLEMENTATION.
+
+  METHOD if_oo_adt_classrun~main.
+
+    DATA: lv_firstNum TYPE i VALUE 6,
+          lv_secNum   TYPE i VALUE 7,
+          lv_ans      TYPE i.
+
+lv_ans =  lv_firstNum + lv_secNum .
+
+    out->write( |The answer is { lv_ans }| ).
+
+  ENDMETHOD.
+
+ENDCLASS.

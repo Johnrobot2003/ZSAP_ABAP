@@ -1,0 +1,31 @@
+CLASS zpractive_lang DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+
+  INTERFACES If_oo_adt_classrun .
+
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+CLASS zpractive_lang IMPLEMENTATION.
+
+METHOD if_oo_adt_classrun~main.
+
+ DATA: lv_score TYPE i VALUE 90 .
+
+ DATA: lv_name TYPE string VALUE 'Johnro'.
+
+ IF lv_score >= 75.
+ out->write( |Congratulations { lv_name }! Pumasa ka!| ) .
+ ELSE.
+ out->write( 'HALA KA! BAT KA BUMAGSAK') .
+
+ ENDIF.
+
+ENDMETHOD.
+
+ENDCLASS.

@@ -1,0 +1,100 @@
+CLASS zcl_01_global DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+  INTERFACES if_oo_adt_classrun.
+
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_01_global IMPLEMENTATION.
+
+METHOD if_oo_adt_classrun~main.
+
+
+
+DATA connection TYPE REF TO lcl_connection.
+DATA connection_two TYPE REF TO lcl_connection.
+connection = new #( ) .
+connection_two = new #( ).
+
+connection->carrier_id = 'JR'.
+connection->connection_id = '0000'.
+
+connection_two->carrier_id = 'JA'.
+connection_two->connection_id = '0000'.
+
+connection->carrier_id = 'JR'.
+connection->connection_id = '0001'.
+
+connection_two->carrier_id = 'JA'.
+connection_two->connection_id = '0002'.
+
+
+DATA connections TYPE TABLE OF REF TO lcl_connection.
+
+APPEND connection TO connections.
+APPEND connection_two to connections.
+
+
+LOOP AT connections INTO DATA(sy_index).
+    sy_index->display_info( io_out = out ).
+ENDLOOP.
+
+DATA: lv_name TYPE string.
+
+lv_name = 'dzsdfJohnro'.
+
+connection->display_name(
+io_out = out
+iv_name = lv_name
+).
+
+
+ENDMETHOD.
+
+
+ENDCLASS.
+
+
+
+CLASS lcl_connection DEFINITION CREATE PUBLIC.
+
+  PUBLIC SECTION.
+    DATA carrier_id TYPE /dmo/carrier_id.
+    DATA connection_id TYPE /dmo/connection_id.
+    CLASS-DATA conn_counter TYPE i.
+
+    METHODS display_name
+    IMPORTING
+        io_out TYPE REF TO if_oo_adt_classrun_out  " pass out as parameter
+        iv_name TYPE string.
+    METHODS display_info
+      IMPORTING
+        io_out TYPE REF TO if_oo_adt_classrun_out.  " pass out as parameter
+
+
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+
+ENDCLASS.
+
+CLASS lcl_connection IMPLEMENTATION.
+
+  METHOD display_info.
+
+  conn_counter = conn_counter + 1.
+    io_out->write( |Row { conn_counter }: { carrier_id } { connection_id }| ).
+
+  ENDMETHOD.
+
+  METHOD display_name.
+   io_out->write( |Hello There { iv_name }| ).
+  ENDMETHOD.
+
+ENDCLASS.
